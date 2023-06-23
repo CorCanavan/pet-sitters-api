@@ -15,6 +15,11 @@ app.get('/', (request, response) => {
   response.send('Oh hey Pet Sitter');
 });
 
+app.get('/api/v1/pets', (request, response) => {
+  const { pets } = app.locals;
+  response.json({ pets });
+})
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}`);
 })
