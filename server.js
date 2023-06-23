@@ -20,6 +20,13 @@ app.get('/api/v1/pets', (request, response) => {
   response.json({ pets });
 })
 
+app.get('/api/v1/pets/:id', (request, response) => {
+  const { id } = request.params;
+  const pet = app.locals.pets.find(pet => pet.id === parseInt(id));
+
+  response.status(200).json(pet);
+})
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}`);
 })
