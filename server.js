@@ -30,6 +30,15 @@ app.get('/api/v1/pets/:id', (request, response) => {
   response.status(200).json(pet);
 })
 
+app.post('/api/v1/pets', (request, response) => {
+  const id = Date.now();
+  const { name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes } = request.body;
+
+  app.locals.pets.push({ id, name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes });
+
+  response.status(201).json({ id, name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes})
+})
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}`);
 })
