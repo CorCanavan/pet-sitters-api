@@ -53,12 +53,27 @@ app.delete('/api/v1/pets/:id', (request, response) => {
   if (!petIndex) {
     response
       .status(400)
-      .send({ error: `Delete unsuccessful. Please specify an existing id.`})
+      .send({ error: 'Delete unsuccessful. Please specify an existing id.'})
   }
 
   pets.splice(petIndex, 1);
 
   response.status(200).json({ message: `Pet with id: ${id} has been successfully deleted.`} );
+})
+
+// PATCH 
+app.patch('/api/v1/pets/:id', (request, response) => {
+  const { id } = request.params;
+  const { name } = request.body;
+  const pet = pets.find(pet => pet.id === parseInt(id));
+
+  if (!pet) {
+    response
+      .status(404).json({ message: 'Not Found' })
+  }
+
+  pet.name = name;
+  response.status(200).json(pet);
 })
 
 app.listen(app.get('port'), () => {
