@@ -16,8 +16,7 @@ app.get('/', (request, response) => {
 
 // GET all pets
 app.get('/api/v1/pets', (request, response) => {
-  const { pets } = app.locals;
-  response.json({ pets });
+  response.json(pets);
 })
 
 // GET specific pet by id
