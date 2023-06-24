@@ -16,3 +16,4 @@ Express API Exercise.
 `GET` | `'/api/v1/pets/:id'` | n/a | `{id: 1, name: 'Doc', type: 'cat', breed: 'Domestic Short Hair', age: 2, food: 'Royal Canin\'s Urinary SO', medicine: 'N/A', favoriteToy: 'twist tie', favoriteTreat: 'Greenies', notes: 'Loves playing fetch'}`
 `POST` | `'/api/v1/pets'` | `{id: <number>, name: <string>, type: <string>, breed: <string>, age: <number>}` | `{id: <number>, name: <string>, type: <string>, breed: <string>, age: <number>}`
 `DELETE` | `'/api/v1/pets/:id'` | `{id: <number>}` | `{message: 'Pet with id: <id> has been successfully deleted.'}`
+`PATCH` | `'/api/v1/pets/:id'` | `{name: <string>}` | `{id: <id>, name: <string>, type: <string>, breed: <string>, age: <number>, food: <string>, medicine: <string>, favoriteToy: <string>, favoriteTreat: <string>, notes: <string>}`
