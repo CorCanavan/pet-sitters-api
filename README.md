@@ -10,7 +10,7 @@ Express API Exercise.
 
 ## Endpoints
 
-| Method | Endpoint | Required Properties for Request | Sample Successful Response |
+| Method | Endpoint | Required Properties for Request Body | Sample Successful Response |
 --- | --- | --- | ---
 `GET` | `'/api/v1/pets'` | n/a | `[{id: 1, name: 'Doc', type: 'cat', breed: 'Domestic Short Hair', age: 2, food: 'Royal Canin\'s Urinary SO', medicine: 'N/A', favoriteToy: 'twist tie', favoriteTreat: 'Greenies', notes: 'Loves playing fetch'}, ...]`
 `GET` | `'/api/v1/pets/:id'` | n/a | `{id: 1, name: 'Doc', type: 'cat', breed: 'Domestic Short Hair', age: 2, food: 'Royal Canin\'s Urinary SO', medicine: 'N/A', favoriteToy: 'twist tie', favoriteTreat: 'Greenies', notes: 'Loves playing fetch'}`
