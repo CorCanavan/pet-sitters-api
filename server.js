@@ -34,7 +34,17 @@ app.post('/api/v1/pets', (request, response) => {
 
   pets.push({ id, name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes });
 
-  response.status(201).json({ id, name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes})
+  response.status(201).json({ id, name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes});
+})
+
+// DELETE
+app.delete('/api/v1/pets/:id', (request, response) => {
+  const { id } = request.params;
+  const petIndex = pets.findIndex(pet => pet.id === parseInt(id));
+
+  pets.splice(petIndex, 1);
+
+  response.status(200).json({ id });
 })
 
 app.listen(app.get('port'), () => {
