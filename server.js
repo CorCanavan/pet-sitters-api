@@ -4,7 +4,7 @@ const pets = require('./data.js');
 
 app.use(express.json());
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 
 app.locals.title = 'Pet Sitter\'s API';
 
@@ -17,7 +17,7 @@ app.get('/', (request, response) => {
 // GET all pets
 app.get('/api/v1/pets', (request, response) => {
   response.json(pets);
-})
+});
 
 // GET specific pet by id
 app.get('/api/v1/pets/:id', (request, response) => {
@@ -25,7 +25,7 @@ app.get('/api/v1/pets/:id', (request, response) => {
   const pet = pets.find(pet => pet.id === parseInt(id));
 
   !pet ? response.sendStatus(404) : response.status(200).json(pet);
-})
+});
 
 // POST
 app.post('/api/v1/pets', (request, response) => {
@@ -36,14 +36,14 @@ app.post('/api/v1/pets', (request, response) => {
     if (!pet[requiredParameter]) {
       response
         .status(422)
-        .send({ error: `Expected format: { name: <String>, type: <String>, breed: <String>, age: <Number> }. You're missing a "${requiredParameter}" property.`})
+        .send({ error: `Expected format: { name: <String>, type: <String>, breed: <String>, age: <Number> }. You're missing a "${requiredParameter}" property.`});
     }
   }
 
   const { name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes } = pet;
   pets.push({ id, name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes });
   response.status(201).json({ id, name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes});
-})
+});
 
 // DELETE
 app.delete('/api/v1/pets/:id', (request, response) => {
@@ -53,13 +53,12 @@ app.delete('/api/v1/pets/:id', (request, response) => {
   if (!petIndex) {
     response
       .status(400)
-      .send({ error: 'Delete unsuccessful. Please specify an existing id.'})
+      .send({ error: 'Delete unsuccessful. Please specify an existing id.'});
   }
 
   pets.splice(petIndex, 1);
-
-  response.status(200).json({ message: `Pet with id: ${id} has been successfully deleted.`} );
-})
+  response.status(200).json({ message: `Pet with id: ${id} has been successfully deleted.`});
+});
 
 // PATCH 
 app.patch('/api/v1/pets/:id', (request, response) => {
@@ -69,12 +68,12 @@ app.patch('/api/v1/pets/:id', (request, response) => {
 
   if (!pet) {
     response
-      .status(404).json({ message: 'Not Found' })
+      .status(404).json({ message: 'Not Found' });
   }
 
   pet.name = name;
   response.status(200).json(pet);
-})
+});
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on http://localhost:${app.get('port')}`);
