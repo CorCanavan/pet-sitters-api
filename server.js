@@ -30,10 +30,18 @@ app.get('/api/v1/pets/:id', (request, response) => {
 // POST
 app.post('/api/v1/pets', (request, response) => {
   const id = Date.now();
-  const { name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes } = request.body;
+  const pet = request.body;
 
+  for (let requiredParameter of ['name', 'type', 'breed', 'age']) {
+    if (!pet[requiredParameter]) {
+      response
+        .status(422)
+        .send({ error: `Expected format: { name: <String>, type: <String>, breed: <String>, age: <Number> }. You're missing a "${requiredParameter}" property.`})
+    }
+  }
+
+  const { name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes } = pet;
   pets.push({ id, name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes });
-
   response.status(201).json({ id, name, type, breed, age, food, medicine, favoriteToy, favoriteTreat, notes});
 })
 
@@ -42,9 +50,15 @@ app.delete('/api/v1/pets/:id', (request, response) => {
   const { id } = request.params;
   const petIndex = pets.findIndex(pet => pet.id === parseInt(id));
 
+  if (!petIndex) {
+    response
+      .status(400)
+      .send({ error: `Delete unsuccessful. Please specify an existing id.`})
+  }
+
   pets.splice(petIndex, 1);
 
-  response.status(200).json({ id });
+  response.status(200).json({ message: `Pet with id: ${id} has been successfully deleted.`} );
 })
 
 app.listen(app.get('port'), () => {
